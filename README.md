@@ -1,1 +1,21 @@
 # filter
+
+## try development
+
+1. Install Go and setup
+	1. http://golang.org/doc/code.html
+	1. http://golang.org/doc/code.html#GOPATH
+	
+1. Get project
+
+		$ go get github.com/hajago/filter
+		$ cd $GOPATH/github.com/hajago/filter
+	
+1. Install Godep 
+
+		$ go get github.com/tools/godep
+		
+1. Install filter project
+
+		$ godep go install
+		$ filter
