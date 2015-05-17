@@ -6,7 +6,7 @@ import (
 )
 
 func TestPptxFilter(t *testing.T) {
-	doc := NewDocx("../Files/test.pptx")
+	doc := NewPptx("../Files/test.pptx")
 	if err := doc.Filter(os.Stdout); err != nil {
 		t.Error(err)
 	}

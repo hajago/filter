@@ -32,6 +32,7 @@ func main() {
 			cli.ShowAppHelp(c)
 			return
 		}
+		defer doc.Close()
 
 		outF := os.Stdout
 		if c.String("output") != "" {
