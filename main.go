@@ -36,7 +36,7 @@ func main() {
 		outF := os.Stdout
 		if c.String("output") != "" {
 			var err error
-			if outF, err = os.Open(c.String("output")); err != nil {
+			if outF, err = os.OpenFile(c.String("output"), os.O_WRONLY|os.O_CREATE, 0666); err != nil {
 				fmt.Printf("filter error: %s\n", err.Error())
 				return
 			}
