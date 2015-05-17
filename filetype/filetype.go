@@ -4,4 +4,5 @@ type Type string
 
 const (
 	DOCX = "docx"
+	PPTX = "pptx"
 )

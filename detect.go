@@ -12,6 +12,7 @@ import (
 const (
 	contentTypesXMLFileName = "[Content_Types].xml"
 	contentTypeWord         = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"
+	contentTypePresentation = "application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"
 )
 
 type ContentType struct {
@@ -56,6 +57,8 @@ func detect(name string) (Document, error) {
 			for _, override := range contentType.Override {
 				if override.ContentType == contentTypeWord {
 					return document.NewDocx(name), nil
+				}else if override.ContentType == contentTypePresentation {
+					return document.NewPptx(name), nil
 				}
 			}
 		}
