@@ -2,14 +2,16 @@
 
 ## try development
 
-1. Install Go and setup
-	1. http://golang.org/doc/code.html
+1. Install Go and set GOROOT, path
+	1. http://golang.org/doc/install
+
+1. Set GOPATH
 	1. http://golang.org/doc/code.html#GOPATH
 	
 1. Get project
 
 		$ go get github.com/hajago/filter
-		$ cd $GOPATH/github.com/hajago/filter
+		$ cd $GOPATH/src/github.com/hajago/filter
 	
 1. Install Godep 
 
