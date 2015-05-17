@@ -30,3 +30,16 @@ func TestDetectPptx(t *testing.T) {
 		t.Error("file is not PPTX format")
 	}
 }
+
+func TestDetectXlsx(t *testing.T) {
+	doc, err := detect("Files/test.xlsx")
+	if err != nil {
+		t.Error(err)
+	}
+	if doc == nil {
+		t.Error("document is null")
+	}
+	if doc.FileType() != filetype.XLSX {
+		t.Error("file is not XLSX format")
+	}
+}
