@@ -1,8 +1,8 @@
 # filter
 
-## try development
-
 [![Build Status](https://travis-ci.org/travis-ci/travis-web.svg?branch=master)](https://travis-ci.org/travis-ci/travis-web)
+
+## try development
 
 1. Install Go and set GOROOT, path
 	1. http://golang.org/doc/install
