@@ -1,11 +1,13 @@
 package main
 
 import (
-	"github.com/hajago/filter/filetype"
 	"os"
+
+	"github.com/hajago/filter/filetype"
 )
 
 type Document interface {
 	FileType() filetype.Type
 	Filter(oFile *os.File) error
+	Close()
 }

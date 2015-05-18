@@ -6,7 +6,10 @@ import (
 )
 
 func TestDocxFilter(t *testing.T) {
-	doc := NewDocx("../Files/test.docx")
+	doc, err := NewDocx("../Files/test.docx")
+	if err != nil {
+		t.Error(err)
+	}
 	if err := doc.Filter(os.Stdout); err != nil {
 		t.Error(err)
 	}

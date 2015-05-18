@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/hajago/filter/filetype"
 	"testing"
+
+	"github.com/hajago/filter/filetype"
 )
 
 func TestDetectDocx(t *testing.T) {

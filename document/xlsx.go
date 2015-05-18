@@ -16,6 +16,10 @@ func NewXlsx(fileName string) *Xlsx {
 	return &Xlsx{fileName: fileName}
 }
 
+func (d *Xlsx) Close() {
+
+}
+
 func (d *Xlsx) FileType() filetype.Type {
 	return filetype.XLSX
 }

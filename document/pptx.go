@@ -10,9 +10,9 @@ import (
 )
 
 type Pptx struct {
-	fileName string
-	slideMasters []slideMaster;
-	slideLayouts []slideLayout;
+	fileName     string
+	slideMasters []slideMaster
+	slideLayouts []slideLayout
 }
 
 type slideMaster struct {
@@ -31,6 +31,10 @@ func NewPptx(fileName string) *Pptx {
 	return &Pptx{fileName: fileName}
 }
 
+func (d *Pptx) Close() {
+
+}
+
 func (d *Pptx) FileType() filetype.Type {
 	return filetype.PPTX
 }
@@ -39,13 +43,12 @@ func (d *Pptx) buildSlideMasters(file *zip.File) {
 
 }
 
-
-func (d *Pptx) buildSlideLayouts(file *zip.File){
+func (d *Pptx) buildSlideLayouts(file *zip.File) {
 
 }
 
 func (d *Pptx) filterSlide(oFile *os.File, f *zip.File) error {
-	file, err := f.Open();
+	file, err := f.Open()
 	if err != nil {
 		return err
 	}
@@ -68,7 +71,7 @@ func (d *Pptx) filterSlide(oFile *os.File, f *zip.File) error {
 		}
 	}
 
-	return nil;
+	return nil
 }
 
 func (d *Pptx) Filter(oFile *os.File) error {
@@ -79,16 +82,16 @@ func (d *Pptx) Filter(oFile *os.File) error {
 	defer r.Close()
 
 	for _, f := range r.File {
-		if !strings.HasSuffix(f.Name, ".xml"){
+		if !strings.HasSuffix(f.Name, ".xml") {
 			continue
 		}
 
 		if strings.HasPrefix(f.Name, "ppt/slideMasters") {
-			d.buildSlideMasters(f);
-		}else if strings.HasPrefix(f.Name, "ppt/slideLayouts") {
-			d.buildSlideLayouts(f);
-		}else if strings.HasPrefix(f.Name, "ppt/slides"){
-			d.filterSlide(oFile, f);
+			d.buildSlideMasters(f)
+		} else if strings.HasPrefix(f.Name, "ppt/slideLayouts") {
+			d.buildSlideLayouts(f)
+		} else if strings.HasPrefix(f.Name, "ppt/slides") {
+			d.filterSlide(oFile, f)
 		}
 	}
 	return nil

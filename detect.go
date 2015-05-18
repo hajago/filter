@@ -2,35 +2,11 @@ package main
 
 import (
 	"archive/zip"
-	"encoding/xml"
-	"io/ioutil"
 
 	"github.com/hajago/filter/document"
 	"github.com/hajago/filter/errors"
+	"github.com/hajago/filter/types"
 )
-
-const (
-	contentTypesXMLFileName = "[Content_Types].xml"
-	contentTypeWord         = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"
-	contentTypePresentation = "application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"
-	contentTypeSpreadsheet  = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"
-)
-
-type ContentType struct {
-	XMLName  xml.Name `xml:"Types"`
-	Default  []Default
-	Override []Override
-}
-
-type Default struct {
-	Extension   string `xml:",attr"`
-	ContentType string `xml:",attr"`
-}
-
-type Override struct {
-	ContentType string `xml:",attr"`
-	PartName    string `xml:",attr"`
-}
 
 func detect(name string) (Document, error) {
 	r, err := zip.OpenReader(name)
@@ -39,28 +15,18 @@ func detect(name string) (Document, error) {
 	}
 	defer r.Close()
 	for _, f := range r.File {
-		if f.Name == contentTypesXMLFileName {
-			rc, err := f.Open()
-			if err != nil {
-				return nil, err
-			}
-			defer rc.Close()
-
-			byts, err := ioutil.ReadAll(rc)
-			if err != nil {
-				return nil, err
-			}
-			contentType := ContentType{}
-			if err := xml.Unmarshal([]byte(byts), &contentType); err != nil {
+		if f.Name == types.ContentTypesXMLFileName {
+			contentType := types.ContentType{}
+			if err := types.UnmarshalZipFile(f, &contentType); err != nil {
 				return nil, err
 			}
 
 			for _, override := range contentType.Override {
-				if override.ContentType == contentTypeWord {
-					return document.NewDocx(name), nil
-				} else if override.ContentType == contentTypePresentation {
+				if override.ContentType == types.ContentTypeWord {
+					return document.NewDocx(name)
+				} else if override.ContentType == types.ContentTypePresentation {
 					return document.NewPptx(name), nil
-				} else if override.ContentType == contentTypeSpreadsheet {
+				} else if override.ContentType == types.ContentTypeSpreadsheet {
 					return document.NewXlsx(name), nil
 				}
 			}

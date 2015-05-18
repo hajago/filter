@@ -5,5 +5,6 @@ import (
 )
 
 var (
-	ErrNotSupportedFormat = errors.New("Not supported format")
+	ErrNotSupportedFormat    = errors.New("Not supported format")
+	ErrNotFoundMainXMLOfWord = errors.New("Not found main xml of word")
 )
